@@ -1,0 +1,29 @@
+{
+  "name": "codealpha-social-media-platform",
+  "version": "1.0.0",
+  "description": "PulseSphere — A Full-Stack Modern Social Media Platform built with Express.js, SQLite, and Vanilla HTML/CSS/JavaScript for CodeAlpha",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node db/seed.js"
+  },
+  "keywords": [
+    "social-media",
+    "express",
+    "sqlite",
+    "javascript",
+    "full-stack",
+    "codealpha"
+  ],
+  "author": "Pratyay Pal",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "sqlite3": "^6.0.1"
+  }
+}
