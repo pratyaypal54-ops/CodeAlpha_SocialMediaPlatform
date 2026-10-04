@@ -62,7 +62,7 @@ function get(path, token) {
 }
 
 async function runTests() {
-  console.log('--- 🧪 Running PulseSphere API Integration Tests ---');
+  console.log('--- 🧪 Running SocialApp API Integration Tests ---');
 
   // 1. Demo Login
   console.log('\n1. Testing Demo Login as alexdev...');
@@ -83,7 +83,7 @@ async function runTests() {
   // 4. Create New Post
   console.log('\n4. Testing POST /posts...');
   const newPostRes = await post('/posts', {
-    content: 'Automated integration test post from PulseSphere runner! #testing #quality',
+    content: 'Automated integration test post from SocialApp runner! #testing #quality',
     image_url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80',
     tag: 'testing'
   }, token);

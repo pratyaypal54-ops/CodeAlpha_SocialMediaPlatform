@@ -85,7 +85,7 @@ router.post('/register', async (req, res) => {
         username,
         email,
         hashedPassword,
-        bio ? bio.trim() : 'Digital explorer on PulseSphere ✨',
+        bio ? bio.trim() : 'Digital explorer on SocialApp ✨',
         defaultAvatar,
         'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
         location ? location.trim() : '',

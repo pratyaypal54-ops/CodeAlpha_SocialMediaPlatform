@@ -1,14 +1,14 @@
-# PulseSphere — Modern Social Media Platform
+# SocialApp — Modern Social Media Platform
 
 [![Node.js](https://img.shields.io/badge/Node.js-v20+-green.svg)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-black.svg)](https://expressjs.com/)
 [![SQLite3](https://img.shields.io/badge/SQLite-3-blue.svg)](https://www.sqlite.org/)
 [![JavaScript](https://img.shields.io/badge/Frontend-Vanilla%20HTML%2FCSS%2FJS-yellow.svg)](https://developer.mozilla.org/)
-[![CodeAlpha](https://img.shields.io/badge/Internship-CodeAlpha-blueviolet.svg)](https://codealpha.tech/)
+[![Demo](https://img.shields.io/badge/Internship-Demo-blueviolet.svg)](https://Demo.tech/)
 
 A full-stack, responsive, and visually stunning developer & creator social network built with **Node.js, Express.js, SQLite3, and Vanilla HTML5/CSS3/JavaScript**. Features dynamic user profiles, rich post feeds with media & hashtags, nested comments, like & follow mechanics, explore & trending topics, notification drawer, and smooth Dark/Light mode switching.
 
-Developed as part of the **CodeAlpha Web Development Internship**.
+Developed as part of the **Demo Web Development Internship**.
 
 ---
 
@@ -97,7 +97,7 @@ Simply double-click **`start.bat`** (or **`run.bat`**) in the project folder. It
 ### Option 2: Using the Command Line
 1. Open PowerShell or Terminal in the project root:
    ```bash
-   cd "c:\CODING\Web Development\CodeAlpha_SocialMediaPlatform"
+   cd "c:\CODING\Web Development\Demo_SocialMediaPlatform"
    ```
 2. Install npm dependencies:
    ```bash
@@ -187,24 +187,24 @@ The database uses SQLite (`db/pulse_social.sqlite`) with relational foreign keys
 
 ## 📤 Uploading to GitHub
 
-To publish this project to GitHub in a repository named **`CodeAlpha_SocialMediaPlatform`**:
+To publish this project to GitHub in a repository named **`Demo_SocialMediaPlatform`**:
 
 ```bash
 # 1. Initialize git in the project root
-cd "c:\CODING\Web Development\CodeAlpha_SocialMediaPlatform"
+cd "c:\CODING\Web Development\Demo_SocialMediaPlatform"
 git init
 
 # 2. Stage all files
 git add .
 
 # 3. Commit files
-git commit -m "Initial commit: Full-Stack Social Media Platform for CodeAlpha"
+git commit -m "Initial commit: Full-Stack Social Media Platform for Demo"
 
 # 4. Set branch to main
 git branch -M main
 
-# 5. Add remote origin (create the repository CodeAlpha_SocialMediaPlatform on your GitHub first)
-git remote add origin https://github.com/pratyaypal54-ops/CodeAlpha_SocialMediaPlatform.git
+# 5. Add remote origin (create the repository Demo_SocialMediaPlatform on your GitHub first)
+git remote add origin https://github.com/pratyaypal54-ops/Demo_SocialMediaPlatform.git
 
 # 6. Push source code to GitHub
 git push -u origin main
@@ -216,4 +216,4 @@ git push -u origin main
 
 **Pratyay Pal**  
 - GitHub: [@pratyaypal54-ops](https://github.com/pratyaypal54-ops)  
-- Project: **CodeAlpha Web Development Internship**
+- Project: **Demo Web Development Internship**

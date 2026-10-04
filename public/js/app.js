@@ -1,5 +1,5 @@
 /**
- * PulseSphere Main Application Coordinator
+ * SocialApp Main Application Coordinator
  * Handles theme toggles, modal lifecycle, routing, notifications drawer, and toasts
  */
 

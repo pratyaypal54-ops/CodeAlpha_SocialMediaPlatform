@@ -1,5 +1,5 @@
 /**
- * PulseSphere Comments Manager
+ * SocialApp Comments Manager
  * Handles fetching, posting, liking, and deleting comments on posts
  */
 

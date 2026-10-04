@@ -1,5 +1,5 @@
 /**
- * PulseSphere Search & Discovery Manager
+ * SocialApp Search & Discovery Manager
  * Handles user searches, trending tags widget, and suggested creator recommendations
  */
 

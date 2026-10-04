@@ -1,5 +1,5 @@
 /**
- * PulseSphere API Client
+ * SocialApp API Client
  * Centralized HTTP request handling with JWT authentication
  */
 

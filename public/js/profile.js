@@ -1,5 +1,5 @@
 /**
- * PulseSphere Profile Manager
+ * SocialApp Profile Manager
  * Handles user profiles, follow/unfollow mechanics, edit profile, and follower lists
  */
 

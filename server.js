@@ -20,8 +20,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve frontend static files with basic caching for optimization
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -34,7 +34,7 @@ app.use('/api/notifications', notificationRoutes);
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
-    appName: 'PulseSphere Social Media Platform',
+    appName: 'SocialApp Social Media Platform',
     timestamp: new Date().toISOString()
   });
 });
@@ -62,7 +62,7 @@ async function startServer() {
 
     app.listen(PORT, () => {
       console.log(`=======================================================`);
-      console.log(`🚀 PulseSphere Social Platform is live!`);
+      console.log(`🚀 SocialApp Social Platform is live!`);
       console.log(`📡 URL: http://localhost:${PORT}`);
       console.log(`⚙️  Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`=======================================================`);

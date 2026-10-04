@@ -1,7 +1,7 @@
 @echo off
-title PulseSphere Social Media App
+title SocialApp Social Media App
 echo ============================================================
-echo   Starting PulseSphere - Modern Full-Stack Social Platform
+echo   Starting SocialApp - Modern Full-Stack Social Platform
 echo ============================================================
 echo.
 cd /d "%~dp0"

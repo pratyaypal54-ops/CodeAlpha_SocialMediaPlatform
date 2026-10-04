@@ -1,5 +1,5 @@
 /**
- * PulseSphere Auth Management
+ * SocialApp Auth Management
  * Handles login, registration, guest states, and demo accounts
  */
 
@@ -274,7 +274,7 @@ const AuthManager = {
           });
           this.setCurrentUser(res.user, res.token);
           window.PulseApp.closeModal('auth-modal');
-          window.PulseApp.showToast('Account created successfully! Welcome to PulseSphere.', 'success');
+          window.PulseApp.showToast('Account created successfully! Welcome to SocialApp.', 'success');
           formRegister.reset();
           if (window.PulseApp.refreshCurrentView) {
             window.PulseApp.refreshCurrentView();
