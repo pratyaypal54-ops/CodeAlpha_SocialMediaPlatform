@@ -47,15 +47,16 @@ router.post('/register', async (req, res) => {
   try {
     let { name, username, email, password, bio, avatar, location, website } = req.body;
 
-    if (!name || !username || !email || !password) {
+    const cleanName = name ? name.trim() : '';
+    const cleanUsername = username ? username.toLowerCase().trim().replace(/[^a-z0-9_]/g, '') : '';
+    const cleanEmail = email ? email.toLowerCase().trim() : '';
+
+    if (!cleanName || !cleanUsername || !cleanEmail || !password) {
       return res.status(400).json({ error: 'Name, username, email, and password are required.' });
     }
 
-    username = username.toLowerCase().trim().replace(/[^a-z0-9_]/g, '');
-    email = email.toLowerCase().trim();
-
-    if (username.length < 3) {
-      return res.status(400).json({ error: 'Username must be at least 3 characters long.' });
+    if (cleanUsername.length < 3) {
+      return res.status(400).json({ error: 'Username must be at least 3 characters (letters, numbers, underscores).' });
     }
     if (password.length < 6) {
       return res.status(400).json({ error: 'Password must be at least 6 characters.' });
@@ -63,27 +64,27 @@ router.post('/register', async (req, res) => {
 
     // Check existing
     const existing = await db.getAsync(
-      'SELECT id, username, email FROM users WHERE username = ? OR email = ?',
-      [username, email]
+      'SELECT id, username, email FROM users WHERE LOWER(username) = ? OR LOWER(email) = ?',
+      [cleanUsername, cleanEmail]
     );
 
     if (existing) {
-      if (existing.username === username) {
+      if (existing.username.toLowerCase() === cleanUsername) {
         return res.status(400).json({ error: 'Username is already taken. Please choose another.' });
       }
       return res.status(400).json({ error: 'Email is already registered. Please log in.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const defaultAvatar = avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${username}`;
+    const defaultAvatar = avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${cleanUsername}`;
 
     const result = await db.runAsync(
       `INSERT INTO users (name, username, email, password, bio, avatar, cover_image, location, website)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        name.trim(),
-        username,
-        email,
+        cleanName,
+        cleanUsername,
+        cleanEmail,
         hashedPassword,
         bio ? bio.trim() : 'Digital explorer on greenit ✨',
         defaultAvatar,
@@ -116,18 +117,21 @@ router.post('/login', async (req, res) => {
     }
 
     const queryVal = login.toLowerCase().trim();
+    const cleanUsername = queryVal.startsWith('@') ? queryVal.slice(1) : queryVal;
+    const sanitizedUsername = cleanUsername.replace(/[^a-z0-9_]/g, '');
+
     const user = await db.getAsync(
-      'SELECT * FROM users WHERE LOWER(email) = ? OR LOWER(username) = ?',
-      [queryVal, queryVal]
+      'SELECT * FROM users WHERE LOWER(email) = ? OR LOWER(username) = ? OR LOWER(username) = ?',
+      [queryVal, cleanUsername, sanitizedUsername]
     );
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email/username or password.' });
+      return res.status(401).json({ error: 'Account not found. Please check your username/email or sign up.' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid email/username or password.' });
+      return res.status(401).json({ error: 'Incorrect password. (For demo accounts, password is password123)' });
     }
 
     const userWithStats = await getUserWithStats(user.id);

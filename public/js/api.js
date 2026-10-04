@@ -3,9 +3,15 @@
  * Centralized HTTP request handling with JWT authentication
  */
 
-const API_BASE = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
-  ? `${window.location.origin}/api`
-  : '/api';
+const API_BASE = (() => {
+  // If served directly by the backend on port 5050
+  if (window.location.port === '5050') {
+    return '/api';
+  }
+  // If running via Live Server (port 5500, 3000, etc.) or file:/// protocol
+  const host = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : 'localhost';
+  return `http://${host}:5050/api`;
+})();
 
 class ApiClient {
   constructor() {

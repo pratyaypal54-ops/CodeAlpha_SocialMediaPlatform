@@ -11,6 +11,7 @@ const AuthManager = {
 
     const storedUser = localStorage.getItem('pulse_user');
     const token = window.api.getToken();
+    const isExplicitLoggedOut = localStorage.getItem('pulse_logged_out') === 'true';
 
     if (token && storedUser) {
       try {
@@ -23,15 +24,16 @@ const AuthManager = {
         console.warn('Session verification failed, logging out:', err);
         this.logout(false);
       }
-    } else {
-      // By default, if no user is logged in, auto-login as demo user "Alex Rivera" for instant live demonstration!
-      // This gives the reviewer an immediate WOW experience without friction.
+    } else if (!isExplicitLoggedOut) {
+      // Auto-login as default demo user only if not explicitly logged out
       try {
         const demoRes = await window.api.demoLogin('alexdev');
         this.setCurrentUser(demoRes.user, demoRes.token);
       } catch (e) {
         this.updateUI();
       }
+    } else {
+      this.updateUI();
     }
 
     this.loadDemoUsersList();
@@ -39,6 +41,7 @@ const AuthManager = {
 
   setCurrentUser(user, token = null) {
     this.currentUser = user;
+    localStorage.removeItem('pulse_logged_out');
     localStorage.setItem('pulse_user', JSON.stringify(user));
     if (token) {
       window.api.setToken(token);
@@ -60,12 +63,14 @@ const AuthManager = {
 
     try {
       const demoUsers = await window.api.getDemoUsers();
+      if (!Array.isArray(demoUsers)) return;
+
       grid.innerHTML = demoUsers.map(u => `
         <div class="demo-account-chip" data-username="${u.username}">
           <img src="${u.avatar}" class="demo-account-avatar" alt="${u.name}" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${u.username}'">
           <div class="demo-account-details">
             <span class="demo-account-name">${u.name} <span style="color:var(--text-muted); font-size:0.8rem;">@${u.username}</span></span>
-            <span class="demo-account-role">${u.bio.slice(0, 48)}...</span>
+            <span class="demo-account-role">${(u.bio || 'greenit member').slice(0, 48)}...</span>
           </div>
         </div>
       `).join('');
@@ -87,7 +92,6 @@ const AuthManager = {
       this.setCurrentUser(res.user, res.token);
       window.PulseApp.closeModal('auth-modal');
       window.PulseApp.showToast(`Switched account to ${res.user.name}!`, 'success');
-      // Refresh current views
       if (window.PulseApp && window.PulseApp.refreshCurrentView) {
         window.PulseApp.refreshCurrentView();
       }
@@ -99,6 +103,7 @@ const AuthManager = {
   logout(showToast = true) {
     this.currentUser = null;
     localStorage.removeItem('pulse_user');
+    localStorage.setItem('pulse_logged_out', 'true');
     window.api.setToken(null);
     this.updateUI();
     if (showToast) {
@@ -194,8 +199,23 @@ const AuthManager = {
     const formLogin = document.getElementById('form-login');
     const formRegister = document.getElementById('form-register');
 
+    const loginErrBanner = document.getElementById('login-error-msg');
+    const regErrBanner = document.getElementById('register-error-msg');
+
+    const clearAuthErrors = () => {
+      if (loginErrBanner) {
+        loginErrBanner.style.display = 'none';
+        loginErrBanner.textContent = '';
+      }
+      if (regErrBanner) {
+        regErrBanner.style.display = 'none';
+        regErrBanner.textContent = '';
+      }
+    };
+
     if (tabLogin && tabRegister) {
       tabLogin.addEventListener('click', () => {
+        clearAuthErrors();
         tabLogin.classList.add('active');
         tabRegister.classList.remove('active');
         formLogin.style.display = 'flex';
@@ -203,6 +223,7 @@ const AuthManager = {
       });
 
       tabRegister.addEventListener('click', () => {
+        clearAuthErrors();
         tabRegister.classList.add('active');
         tabLogin.classList.remove('active');
         formRegister.style.display = 'flex';
@@ -214,10 +235,15 @@ const AuthManager = {
     if (formLogin) {
       formLogin.addEventListener('submit', async (e) => {
         e.preventDefault();
+        clearAuthErrors();
         const loginVal = document.getElementById('login-identifier').value.trim();
         const passwordVal = document.getElementById('login-password').value;
 
         if (!loginVal || !passwordVal) {
+          if (loginErrBanner) {
+            loginErrBanner.textContent = 'Please enter both email/username and password.';
+            loginErrBanner.style.display = 'block';
+          }
           window.PulseApp.showToast('Please enter both email/username and password.', 'error');
           return;
         }
@@ -232,11 +258,17 @@ const AuthManager = {
           window.PulseApp.closeModal('auth-modal');
           window.PulseApp.showToast(`Welcome back, ${res.user.name}!`, 'success');
           formLogin.reset();
+          clearAuthErrors();
           if (window.PulseApp.refreshCurrentView) {
             window.PulseApp.refreshCurrentView();
           }
         } catch (err) {
-          window.PulseApp.showToast(err.message, 'error');
+          const msg = err.message || 'Login failed. Please check credentials.';
+          if (loginErrBanner) {
+            loginErrBanner.textContent = msg;
+            loginErrBanner.style.display = 'block';
+          }
+          window.PulseApp.showToast(msg, 'error');
         } finally {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Sign In';
@@ -248,6 +280,7 @@ const AuthManager = {
     if (formRegister) {
       formRegister.addEventListener('submit', async (e) => {
         e.preventDefault();
+        clearAuthErrors();
         const name = document.getElementById('reg-name').value.trim();
         const username = document.getElementById('reg-username').value.trim();
         const email = document.getElementById('reg-email').value.trim();
@@ -255,7 +288,32 @@ const AuthManager = {
         const bio = document.getElementById('reg-bio').value.trim();
 
         if (!name || !username || !email || !password) {
-          window.PulseApp.showToast('Please fill out all required fields.', 'error');
+          const msg = 'Please fill out all required fields.';
+          if (regErrBanner) {
+            regErrBanner.textContent = msg;
+            regErrBanner.style.display = 'block';
+          }
+          window.PulseApp.showToast(msg, 'error');
+          return;
+        }
+
+        if (username.length < 3) {
+          const msg = 'Username must be at least 3 characters.';
+          if (regErrBanner) {
+            regErrBanner.textContent = msg;
+            regErrBanner.style.display = 'block';
+          }
+          window.PulseApp.showToast(msg, 'error');
+          return;
+        }
+
+        if (password.length < 6) {
+          const msg = 'Password must be at least 6 characters.';
+          if (regErrBanner) {
+            regErrBanner.textContent = msg;
+            regErrBanner.style.display = 'block';
+          }
+          window.PulseApp.showToast(msg, 'error');
           return;
         }
 
@@ -276,11 +334,17 @@ const AuthManager = {
           window.PulseApp.closeModal('auth-modal');
           window.PulseApp.showToast('Account created successfully! Welcome to greenit.', 'success');
           formRegister.reset();
+          clearAuthErrors();
           if (window.PulseApp.refreshCurrentView) {
             window.PulseApp.refreshCurrentView();
           }
         } catch (err) {
-          window.PulseApp.showToast(err.message, 'error');
+          const msg = err.message || 'Registration failed. Please try again.';
+          if (regErrBanner) {
+            regErrBanner.textContent = msg;
+            regErrBanner.style.display = 'block';
+          }
+          window.PulseApp.showToast(msg, 'error');
         } finally {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Create Account';

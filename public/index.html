@@ -428,6 +428,7 @@
 
         <!-- Login Form -->
         <form id="form-login" style="display:flex; flex-direction:column; gap:0.9rem;">
+          <div id="login-error-msg" class="auth-error-banner" style="display:none; padding:0.65rem 0.85rem; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); border-radius:var(--radius-sm); color:#fca5a5; font-size:0.84rem;"></div>
           <div class="form-group">
             <label class="form-label" for="login-identifier">Username or Email</label>
             <input type="text" class="form-input" id="login-identifier" placeholder="e.g. alexdev or alex@example.com" required>
@@ -435,19 +436,24 @@
           <div class="form-group">
             <label class="form-label" for="login-password">Password</label>
             <input type="password" class="form-input" id="login-password" placeholder="••••••••" required>
+            <div style="font-size:0.76rem; color:var(--text-muted); margin-top:0.3rem;">
+              Demo password for seeded accounts: <strong style="color:var(--text-primary);">password123</strong>
+            </div>
           </div>
           <button type="submit" class="btn-form-submit">Sign In</button>
         </form>
 
         <!-- Register Form -->
         <form id="form-register" style="display:none; flex-direction:column; gap:0.9rem;">
+          <div id="register-error-msg" class="auth-error-banner" style="display:none; padding:0.65rem 0.85rem; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); border-radius:var(--radius-sm); color:#fca5a5; font-size:0.84rem;"></div>
           <div class="form-group">
             <label class="form-label" for="reg-name">Full Name *</label>
             <input type="text" class="form-input" id="reg-name" placeholder="e.g. Pratyay Pal" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="reg-username">Username *</label>
-            <input type="text" class="form-input" id="reg-username" placeholder="e.g. pratyay_dev" required>
+            <input type="text" class="form-input" id="reg-username" placeholder="e.g. pratyay_dev" minlength="3" required>
+            <span style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">At least 3 characters (letters, numbers, underscore)</span>
           </div>
           <div class="form-group">
             <label class="form-label" for="reg-email">Email Address *</label>
@@ -458,8 +464,8 @@
             <input type="password" class="form-input" id="reg-password" placeholder="At least 6 characters" minlength="6" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="reg-bio">Bio</label>
-            <textarea class="form-textarea" id="reg-bio" placeholder="Tell the world about what you build..."></textarea>
+            <label class="form-label" for="reg-bio">Bio (Optional)</label>
+            <textarea class="form-textarea" id="reg-bio" placeholder="Tell the world about yourself..."></textarea>
           </div>
           <button type="submit" class="btn-form-submit">Create Account</button>
         </form>
