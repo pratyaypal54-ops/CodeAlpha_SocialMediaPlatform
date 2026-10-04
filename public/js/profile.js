@@ -1,5 +1,5 @@
 /**
- * SocialApp Profile Manager
+ * greenit Profile Manager
  * Handles user profiles, follow/unfollow mechanics, edit profile, and follower lists
  */
 

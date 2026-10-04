@@ -145,7 +145,7 @@ async function seed() {
     },
     {
       user_id: 1,
-      content: 'Happy to announce that SocialApp v1 is live! Built as a clean, high-performance social platform with full profile customizations, instant post interactions, and follow feeds. Huge shoutout to the community for continuous feedback! 💙🎉 #community #milestone',
+      content: 'Happy to announce that greenit v1 is live! Built as a clean, simple and high-performance social platform. Huge shoutout to the community for continuous feedback! 🌿🎉 #community #greenit',
       image_url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80',
       tag: 'milestone'
     }

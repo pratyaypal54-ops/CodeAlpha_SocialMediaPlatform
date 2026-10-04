@@ -1,5 +1,5 @@
 /**
- * SocialApp API Client
+ * greenit API Client
  * Centralized HTTP request handling with JWT authentication
  */
 

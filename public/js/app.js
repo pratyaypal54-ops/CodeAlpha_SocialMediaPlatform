@@ -1,5 +1,5 @@
 /**
- * SocialApp Main Application Coordinator
+ * greenit Main Application Coordinator
  * Handles theme toggles, modal lifecycle, routing, notifications drawer, and toasts
  */
 

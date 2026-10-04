@@ -1,7 +1,7 @@
 {
-  "name": "Demo-social-media-platform",
+  "name": "greenit",
   "version": "1.0.0",
-  "description": "SocialApp — A Full-Stack Modern Social Media Platform built with Express.js, SQLite, and Vanilla HTML/CSS/JavaScript for Demo",
+  "description": "greenit — A Simple & Modern Full-Stack Social Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,7 +14,7 @@
     "sqlite",
     "javascript",
     "full-stack",
-    "Demo"
+    "greenit"
   ],
   "author": "Pratyay Pal",
   "license": "MIT",

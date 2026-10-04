@@ -1,14 +1,11 @@
-# SocialApp — Modern Social Media Platform
+# greenit — Simple Social Platform
 
 [![Node.js](https://img.shields.io/badge/Node.js-v20+-green.svg)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-black.svg)](https://expressjs.com/)
 [![SQLite3](https://img.shields.io/badge/SQLite-3-blue.svg)](https://www.sqlite.org/)
 [![JavaScript](https://img.shields.io/badge/Frontend-Vanilla%20HTML%2FCSS%2FJS-yellow.svg)](https://developer.mozilla.org/)
-[![Demo](https://img.shields.io/badge/Internship-Demo-blueviolet.svg)](https://Demo.tech/)
 
-A full-stack, responsive, and visually stunning developer & creator social network built with **Node.js, Express.js, SQLite3, and Vanilla HTML5/CSS3/JavaScript**. Features dynamic user profiles, rich post feeds with media & hashtags, nested comments, like & follow mechanics, explore & trending topics, notification drawer, and smooth Dark/Light mode switching.
-
-Developed as part of the **Demo Web Development Internship**.
+A full-stack, responsive, simple, and clean social network built with **Node.js, Express.js, SQLite3, and Vanilla HTML5/CSS3/JavaScript**. Features dynamic user profiles, post feeds with media & hashtags, comments, like & follow mechanics, explore & trending topics, notification drawer, and smooth Dark/Light mode switching.
 
 ---
 

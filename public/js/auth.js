@@ -1,5 +1,5 @@
 /**
- * SocialApp Auth Management
+ * greenit Auth Management
  * Handles login, registration, guest states, and demo accounts
  */
 
@@ -274,7 +274,7 @@ const AuthManager = {
           });
           this.setCurrentUser(res.user, res.token);
           window.PulseApp.closeModal('auth-modal');
-          window.PulseApp.showToast('Account created successfully! Welcome to SocialApp.', 'success');
+          window.PulseApp.showToast('Account created successfully! Welcome to greenit.', 'success');
           formRegister.reset();
           if (window.PulseApp.refreshCurrentView) {
             window.PulseApp.refreshCurrentView();

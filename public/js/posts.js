@@ -1,5 +1,5 @@
 /**
- * SocialApp Posts Manager
+ * greenit Posts Manager
  * Handles creating posts, feeds rendering, like/bookmark actions, and interactions
  */
 
@@ -124,7 +124,7 @@ const PostsManager = {
         previewImg.src = '';
         extrasDrawer.style.display = 'none';
 
-        window.PulseApp.showToast('Post published to SocialApp! 🚀', 'success');
+        window.PulseApp.showToast('Post published to greenit! 🚀', 'success');
         this.loadFeed(this.currentFeed);
       } catch (err) {
         window.PulseApp.showToast(err.message, 'error');

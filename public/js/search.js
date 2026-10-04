@@ -1,5 +1,5 @@
 /**
- * SocialApp Search & Discovery Manager
+ * greenit Search & Discovery Manager
  * Handles user searches, trending tags widget, and suggested creator recommendations
  */
 

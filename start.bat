@@ -1,7 +1,7 @@
 @echo off
-title SocialApp Social Media App
+title greenit Social App
 echo ============================================================
-echo   Starting SocialApp - Modern Full-Stack Social Platform
+echo   Starting greenit - Simple Full-Stack Social Platform
 echo ============================================================
 echo.
 cd /d "%~dp0"

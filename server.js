@@ -34,7 +34,7 @@ app.use('/api/notifications', notificationRoutes);
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
-    appName: 'SocialApp Social Media Platform',
+    appName: 'greenit Social Platform',
     timestamp: new Date().toISOString()
   });
 });
@@ -62,7 +62,7 @@ async function startServer() {
 
     app.listen(PORT, () => {
       console.log(`=======================================================`);
-      console.log(`🚀 SocialApp Social Platform is live!`);
+      console.log(`🚀 greenit Social Platform is live!`);
       console.log(`📡 URL: http://localhost:${PORT}`);
       console.log(`⚙️  Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`=======================================================`);
