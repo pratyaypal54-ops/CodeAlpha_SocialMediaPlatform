@@ -60,7 +60,7 @@ async function startServer() {
     await initDatabase();
     await seed();
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`=======================================================`);
       console.log(`🚀 greenit Social Platform is live!`);
       console.log(`📡 URL: http://localhost:${PORT}`);

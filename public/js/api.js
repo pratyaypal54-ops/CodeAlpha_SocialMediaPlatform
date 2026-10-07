@@ -4,12 +4,17 @@
  */
 
 const API_BASE = (() => {
-  // If served directly by the backend on port 5050
+  // If deployed in production (e.g. Render, Railway, custom domain), use relative path
+  const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  if (!isLocalhost && window.location.hostname !== '') {
+    return '/api';
+  }
+  // If served directly by local backend on port 5050
   if (window.location.port === '5050') {
     return '/api';
   }
-  // If running via Live Server (port 5500, 3000, etc.) or file:/// protocol
-  const host = (window.location.hostname && window.location.hostname !== '') ? window.location.hostname : 'localhost';
+  // If running via Live Server (port 5500, 3000, etc.) or file:/// protocol locally
+  const host = window.location.hostname || 'localhost';
   return `http://${host}:5050/api`;
 })();
 
