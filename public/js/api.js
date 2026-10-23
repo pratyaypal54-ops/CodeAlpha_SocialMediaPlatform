@@ -70,6 +70,9 @@ class ApiClient {
       return data;
     } catch (err) {
       console.error(`API Error on ${endpoint}:`, err);
+      if (err instanceof TypeError && err.message.toLowerCase().includes('fetch')) {
+        throw new Error('Cannot connect to server. Please ensure the backend is running at http://localhost:5050');
+      }
       throw err;
     }
   }
